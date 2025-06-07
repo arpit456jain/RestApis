@@ -7,6 +7,7 @@ import io
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 
+
 def getAllTask(request):
     try:
         queryset = Task.objects.all()
@@ -76,3 +77,4 @@ def deleteTask(request,task_id):
             return JsonResponse({'error': 'Task not found'}, status=404)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
+        
