@@ -135,10 +135,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 STATIC_URL = '/static/'
 
-# Optional: only if you have your own static files for your app
+# # Optional: only if you have your own static files for your app
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# Required: this is where collectstatic will copy all static files
+# # Required: this is where collectstatic will copy all static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

@@ -7,5 +7,6 @@ from taskManager import views
 
 urlpatterns = [
     path('task', views.getAllTask),
+    path('createTask', views.createTask),
     path('task/<int:task_id>', views.getTaskById),
 ]
