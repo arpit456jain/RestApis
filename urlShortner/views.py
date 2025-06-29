@@ -11,9 +11,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import get_object_or_404, redirect
 
-def redirect_short_url(request, short_code):
-    url_obj = get_object_or_404(ShortenedURL, short_code=short_code)
-    return HttpResponseRedirect(url_obj.original_url)
+class RedirectShortURLView(APIView):
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
+
+    def get(self, request, short_code):
+        url_obj = get_object_or_404(ShortenedURL, short_code=short_code)
+        return HttpResponseRedirect(url_obj.original_url)
 
 
 class GetOriginalURLView(APIView):
