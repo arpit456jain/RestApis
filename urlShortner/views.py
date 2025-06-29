@@ -6,13 +6,19 @@ from .serializers import SignupSerializer, LoginSerializer,ShortenedURLSerialize
 from django.contrib.auth.hashers import check_password
 import string, random
 from django.http import HttpResponseRedirect
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import get_object_or_404, redirect
+
 def redirect_short_url(request, short_code):
     url_obj = get_object_or_404(ShortenedURL, short_code=short_code)
     return HttpResponseRedirect(url_obj.original_url)
 
+
 class GetOriginalURLView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         user_id = request.data.get("userId")
         short_code = request.data.get("short_code")
@@ -41,11 +47,14 @@ class LoginView(APIView):
             try:
                 user = URLShortenerUser.objects.get(username=serializer.validated_data['username'])
                 if check_password(serializer.validated_data['password'], user.password):
+                   token = RefreshToken.for_user(user)
                    return Response({
                         'message': 'Login successful',
                         'user_id': user.id,
                         'username': user.username,
-                        'name': user.name
+                        'name': user.name,
+                        'access': str(token.access_token),
+                        'refresh': str(token),
                     }, status=status.HTTP_200_OK)
                 else:
                     return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -57,6 +66,8 @@ def generate_short_code(length=6):
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
 class ShortenURLView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         user_id = request.data.get("userId")
         original_url = request.data.get("original_url")
