@@ -21,4 +21,5 @@ urlpatterns = [
     path('taskManager/', include('taskManager.urls')),
     path('urlShortner/', include('urlShortner.urls')),
     path('tutorial/', include('tutorial.urls')),
+    path('chatWithPDF/', include('chatWithPDF.urls')),
 ]
