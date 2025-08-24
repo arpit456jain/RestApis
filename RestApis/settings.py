@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'taskManager',
     'urlShortner',
     'tutorial',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [

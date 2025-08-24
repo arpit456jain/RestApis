@@ -19,6 +19,6 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('taskManager/', include('taskManager.urls')),
-    path('api/', include('urlShortner.urls')),
+    path('urlShortner/', include('urlShortner.urls')),
     path('tutorial/', include('tutorial.urls')),
 ]

@@ -1,10 +1,7 @@
 from django.contrib import admin
-from .models import URLShortenerUser,ShortenedURL
+from .models import ShortenedURL
 
-@admin.register(URLShortenerUser)
-class UrlShortnerUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'name', 'email')
-    search_fields = ('username', 'email', 'name')
+
 
 @admin.register(ShortenedURL)
 class ShortenedURLAdmin(admin.ModelAdmin):
