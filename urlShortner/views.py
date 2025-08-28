@@ -59,9 +59,10 @@ class ShortenURLView(APIView):
         while ShortenedURL.objects.filter(short_code=short_code).exists():
             short_code = generate_short_code()
 
-        # Create entry
+        user = User.objects.get(id=request.user.id)
+        
         url = ShortenedURL.objects.create(
-            user_id=user_id,
+            user=user,
             original_url=original_url,
             short_code=short_code
         )
