@@ -1,6 +1,7 @@
 # ragapi/utils.py
 import tempfile
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+# from langchain_perplexity import ChatPerplexity
 from langchain_community.document_loaders import PyPDFLoader
 from dotenv import load_dotenv
 import os
@@ -14,6 +15,15 @@ llm = HuggingFaceEndpoint(
     task="text-generation"
 )
 model = ChatHuggingFace(llm=llm)
+
+# Use Perplexity API (OpenAI-compatible)
+# model = ChatPerplexity(
+#    model="sonar",
+#    pplx_api_key="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",
+#     max_tokens=100
+# )
+
+
 
 def summarize_pdf(pdf_file):
     """Takes an uploaded PDF file, extracts text, and summarizes it."""
@@ -51,8 +61,8 @@ def ask_pdf(pdf_file, question):
     return result.content if hasattr(result, "content") else result
 
 
-def test_llm():
+def test_llm(question):
     """Simple test to check if LLM is working."""
-    prompt = "What is the capital of India?"
-    result = model.invoke(prompt)
+    # prompt = "What is the capital of India?"
+    result = model.invoke(question)
     return result.content if hasattr(result, "content") else result

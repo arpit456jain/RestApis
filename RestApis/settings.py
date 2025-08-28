@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'urlShortner',
     'tutorial',
     'rest_framework.authtoken',
-    'chatWithPDF'
+    'chatWithPDF',
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -110,6 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

@@ -27,9 +27,10 @@ class AskPDFView(APIView):
 
 
 class LLMTestView(APIView):
-    def get(self, request):
+    def post(self, request):
         try:
-            response = test_llm()
+            question = request.data.get("question")
+            response = test_llm(question)
             return Response({"response": response}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
