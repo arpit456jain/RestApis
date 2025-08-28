@@ -1,10 +1,9 @@
-from rest_framework.routers import DefaultRouter
-from django.urls import path, include
-from .views import YourModelViewSet
 
-router = DefaultRouter()
-router.register(r'yourmodels', YourModelViewSet)
+from django.urls import path
+from .views import SignupView, LoginView
 
 urlpatterns = [
-    path('', include(router.urls)),
+    
+    path('register', SignupView.as_view(), name='register'),
+    path('login', LoginView.as_view(), name='login'),
 ]
