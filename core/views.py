@@ -13,7 +13,8 @@ class SignupView(APIView):
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            UserProfile.objects.create(user=user, project="url_shortner")
+            project_name = request.data.get("project_name", None)
+            UserProfile.objects.create(user=user, project=project_name)
             return Response({'message': 'User created successfully!'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -25,7 +26,8 @@ class LoginView(APIView):
                 user = User.objects.get(username=serializer.validated_data['username'])
                 if check_password(serializer.validated_data['password'], user.password):
                    try:
-                        if user.userprofile.project != "url_shortner":
+                        project_name = request.data.get("project_name", None)
+                        if user.userprofile.project != project_name or project_name == None:
                             return Response({'error': 'Not authorized for this project'}, status=status.HTTP_403_FORBIDDEN)
                    except UserProfile.DoesNotExist:
                         return Response({'error': 'User profile not found'}, status=status.HTTP_404_NOT_FOUND)
