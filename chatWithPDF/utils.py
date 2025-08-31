@@ -16,15 +16,6 @@ llm = HuggingFaceEndpoint(
 )
 model = ChatHuggingFace(llm=llm)
 
-# Use Perplexity API (OpenAI-compatible)
-# model = ChatPerplexity(
-#    model="sonar",
-#    pplx_api_key="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",
-#     max_tokens=100
-# )
-
-
-
 def summarize_pdf(pdf_file):
     """Takes an uploaded PDF file, extracts text, and summarizes it."""
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
