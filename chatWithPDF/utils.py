@@ -12,7 +12,8 @@ load_dotenv()
 # Initialize LLM
 llm = HuggingFaceEndpoint(
     repo_id="meta-llama/Llama-3.1-8B-Instruct",
-    task="text-generation"
+    task="text-generation",
+    max_new_tokens=10
 )
 model = ChatHuggingFace(llm=llm)
 
