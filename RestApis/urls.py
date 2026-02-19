@@ -24,6 +24,7 @@ urlpatterns = [
     path('urlShortner/', include('urlShortner.urls')),
     path('tutorial/', include('tutorial.urls')),
     path('chatWithPDF/', include('chatWithPDF.urls')),
+    path('hrmsapi/', include('hrms.urls')),
     # Schema endpoint
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Swagger UI
